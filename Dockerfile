@@ -5,6 +5,6 @@ ADD . /home/
 RUN apk add --no-cache git && go build
 
 # Copy Build Artifact to Clean Alpine Container
-FROM alpine:latest
+FROM alpine:3.12
 COPY --from=build /home/hello-go /app/bin/app
 ENTRYPOINT [ "/app/bin/app" ]
