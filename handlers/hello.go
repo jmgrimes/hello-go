@@ -4,6 +4,8 @@ import(
 	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/jmgrimes/hello-go/configs"
 )
 
 type HelloResponse struct {
@@ -13,12 +15,12 @@ type HelloResponse struct {
 
 func GetHelloEndpoint(writer http.ResponseWriter, request *http.Request) {
 	var response HelloResponse
-	var name = "Stranger"
+	var name = configs.Configuration.DefaultName
 	names, ok := request.URL.Query()["name"]
 	if ok && len(names[0]) > 0 {
 		 name = names[0]
 	}
-	response.Message = fmt.Sprintf("Hello, %s!", name)
-	response.Version = "1.0.0"
+	response.Message = fmt.Sprintf(configs.Configuration.Template, name)
+	response.Version = configs.Configuration.Version
 	json.NewEncoder(writer).Encode(response)
 }
