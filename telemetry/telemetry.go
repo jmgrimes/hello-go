@@ -16,7 +16,7 @@ func init() {
 	exporterName := os.Getenv("OTEL_EXPORTER")
 	if exporterName == "otlp" {
 		ctx := context.Background()
-		exporter, err := otlp.NewExporter(ctx)
+		exporter, err := otlp.NewExporter(ctx, otlp.WithInsecure())
 		if err != nil {
 			log.Fatal(err)
 		}
