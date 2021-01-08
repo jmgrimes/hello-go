@@ -3,6 +3,8 @@ package routes
 import (
 	"net/http"
 
+	"go.opentelemetry.io/contrib/instrumentation/github.com/gorilla/mux/otelmux"
+
 	"github.com/gorilla/mux"
 	"github.com/jmgrimes/hello-go/handlers"
 	"github.com/jmgrimes/hello-go/logging"
@@ -19,6 +21,7 @@ type Routes []Route
 
 func NewRouter() *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
+	router.Use(otelmux.Middleware("hello-go"))
 	for _, route := range routes {
 		var handler http.Handler = logging.LogHandler(route.HandlerFunc, route.Name)
 		router.Methods(route.Method).Path(route.Pattern).Name(route.Name).Handler(handler)
