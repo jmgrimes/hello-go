@@ -7,7 +7,10 @@ import (
 
 	"github.com/jmgrimes/hello-go/configs"
 	"github.com/jmgrimes/hello-go/routes"
+	_ "github.com/jmgrimes/hello-go/telemetry"
 )
+
+
 
 func main() {
 	configurationFile := flag.String("config", "", "a yaml formatted configuration file")
@@ -19,7 +22,6 @@ func main() {
 			return
 		}
 	}
-
 	router := routes.NewRouter()
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
