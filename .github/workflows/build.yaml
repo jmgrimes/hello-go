@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - develop   # build pushes to develop branch
-      - master    # build pushes to master branch
+      - main      # build pushes to main branch
       - feature/* # build pushes to feature branches
       - hotfix/*  # build pushes to hotfix branches
       - release/* # build pushes to release branches
@@ -26,4 +26,4 @@ jobs:
           registry: docker.pkg.github.com
           repository: jmgrimes/hello-go/hello-go
           tag_with_ref: true
-          push: ${{ github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/tags/') }}
+          push: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || startsWith(github.ref, 'refs/heads/release/') || startsWith(github.ref, 'refs/tags/') }}
